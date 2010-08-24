@@ -1,10 +1,24 @@
+#content {
+    overflow: auto;
+}
+
 #issues-kanban {
-    width: auto;
+    min-width: 2000px;
     height: 640px;
     overflow-y: hidden;
     overflow-x: auto;
     display: block;
     float: left;
+}
+
+.issue-status ul {
+    margin: 0;
+    list-style: none;
+    padding:0;
+}
+
+.issue:hover {
+    cusor: pointer;
 }
 
 .issue-status {
@@ -13,10 +27,11 @@
     border: 1px solid #ddd;
     width: 250px;
     height: 600px;
+    vertical-align: top;
     overflow-y: auto;
     overflow-x: hidden;
-    float: left;
     display: inline-block;
+    float: left;
     margin: 0 10px 10px 0;
 }
 
@@ -28,7 +43,15 @@
     background: #eee;
 }
 
-.issue .assigned_to {
+.assigned_to {
     font-size: smaller;
     text-align: right;
+}
+
+.updating {
+    background: #eef !important;
+}
+
+.ui-sortable {
+    min-height: 50px;
 }
