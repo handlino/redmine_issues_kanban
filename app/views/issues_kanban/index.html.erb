@@ -1,0 +1,12 @@
+<% @trackers.each do |tracker| %>
+<div class="section tracker">
+    <h2 class="title"><%=h tracker.name %></h2>
+    <div class="bd">
+        <% @issues.find_all { |x| x.tracker_id == tracker.id }.each do |issue| %>
+        <div class="section issue">
+            <%=h issue.subject %>
+        </div>
+        <% end %>
+    </div>
+</div>
+<% end %>
