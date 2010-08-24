@@ -1,13 +1,15 @@
 class IssuesKanbanController < ApplicationController
   unloadable
   include QueriesHelper
+  helper :issues
+
   before_filter :find_project, :only => [:index]
 
   def index
     retrieve_query
 
     if @query.valid?
-      @trackers = Tracker.all
+      @statuses = IssueStatus.all
       @issues = @query.issues(:include => [:assigned_to, :tracker, :priority, :category, :fixed_version])
     else
       render_404

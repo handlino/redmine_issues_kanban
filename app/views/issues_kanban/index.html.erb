@@ -1,12 +1,21 @@
-<% @trackers.each do |tracker| %>
-<div class="section tracker">
-    <h2 class="title"><%=h tracker.name %></h2>
-    <div class="bd">
-        <% @issues.find_all { |x| x.tracker_id == tracker.id }.each do |issue| %>
-        <div class="section issue">
-            <%=h issue.subject %>
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'issues-kanban', :plugin => :redmine_issues_kanban %>
+<% end %>
+
+<div id="issues-kanban">
+<% @statuses.each do |status| %>
+<div class="section issue-status <%= h status.is_closed ? "is_closed" : '' %> <%= h status.is_default ? "is_default" : '' %>">
+    <h2 class="title"><%=h status.name %></h2>
+    <% @issues.find_all { |x| x.status_id == status.id }.each do |issue| %>
+    <div class="issue">
+        <%= link_to issue.subject, { :controller => 'issues', :action => 'show', :id => issue.id } %>
+        <% if issue.assigned_to %>
+        <div class="assigned_to">
+            <%= link_to_user(issue.assigned_to) %>
         </div>
         <% end %>
     </div>
+    <% end %>
 </div>
 <% end %>
+</div>

@@ -1,0 +1,34 @@
+#issues-kanban {
+    width: auto;
+    height: 640px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    display: block;
+    float: left;
+}
+
+.issue-status {
+    padding: 10px;
+    -webkit-box-shadow: 5px 5px 5px #eee;
+    border: 1px solid #ddd;
+    width: 250px;
+    height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    float: left;
+    display: inline-block;
+    margin: 0 10px 10px 0;
+}
+
+.is_default {
+    background: #efe;
+}
+
+.is_closed {
+    background: #eee;
+}
+
+.issue .assigned_to {
+    font-size: smaller;
+    text-align: right;
+}
