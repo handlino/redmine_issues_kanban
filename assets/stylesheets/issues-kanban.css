@@ -22,6 +22,7 @@
 .issue-status {
     display: inline-block;
     vertical-align: top;
+    white-space: normal;
     width: 250px;
     height: 600px;
     margin: 0 10px 10px 0;
