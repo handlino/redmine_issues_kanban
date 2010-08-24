@@ -49,7 +49,8 @@ jQuery.noConflict();
     <% @issues.find_all { |x| x.status_id == status.id }.each do |issue| %>
     <li>
     <div class="issue issue-<%=h issue.id %>">
-        <%= link_to issue.subject, { :controller => 'issues', :action => 'show', :id => issue.id } %>
+        <%= link_to issue.id, { :controller => 'issues', :action => 'show', :id => issue.id } %>
+        <%= h issue.subject %>
         <% if issue.assigned_to %>
         <div class="assigned_to">
             <%= link_to_user(issue.assigned_to) %>
