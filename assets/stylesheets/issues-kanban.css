@@ -11,19 +11,25 @@
     overflow-x: auto;
 }
 
-.issue {
-    font-size: small;
-    width: auto;
+div.issue {
+    font-size: 11px;
     overflow: hidden;
-    min-height: 4em;
-    max-height: 5em;
+    width: 90px;
+    height: 90px;
+    padding: 3px;
+}
+
+div.issue p {
+    height: 65px;
+    overflow: hidden;
+    margin: 0;
 }
 
 .issue-status {
     display: inline-block;
     vertical-align: top;
     white-space: normal;
-    width: 180px;
+    width: 220px;
     min-height: 1000px;
     border: 1px solid #ddd;
     overflow-x: hidden;
@@ -39,7 +45,8 @@
 }
 
 .issue-status li {
-    width: 80px;
+    width: 100px;
+    height: 105px;
     display: inline-block;
     vertical-align: top;
     margin: 0;:
@@ -55,8 +62,16 @@
 }
 
 .assigned_to {
-    font-size: smaller;
+    font-size: 11px;
     text-align: right;
+}
+
+.issue-id {
+    display: block;
+    border: 1px inset #ffc;
+    background: #ffa;
+    padding-left: 5px;
+    border-radius: 5px;   
 }
 
 .updating {
