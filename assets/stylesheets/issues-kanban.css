@@ -12,6 +12,10 @@
 }
 
 div.issue {
+    -moz-box-shadow: 1px 1px 3px #ccc;
+    -webkit-box-shadow: 1px 1px 3px #ccc;
+    box-shadow: 1px 1px 3px #ccc;
+
     font-size: 11px;
     overflow: hidden;
     width: 90px;
@@ -30,11 +34,22 @@ div.issue p {
     vertical-align: top;
     white-space: normal;
     width: 220px;
-    min-height: 1000px;
+    height: 640px;
+
     border: 1px solid #ddd;
     overflow-x: hidden;
+    overflow-y: auto;
 
     margin: 0 10px 0 0;
+    padding: 28px 5px 5px 5px;;
+}
+
+.issue-status .title {
+    position: fixed;
+    margin-top: -28px;
+    margin-left: -5px;
+    background: #fff;
+    width: 205px;
     padding: 5px;
 }
 
