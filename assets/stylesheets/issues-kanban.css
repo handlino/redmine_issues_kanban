@@ -9,13 +9,13 @@
 #issues-kanban {
     white-space: nowrap;
     overflow-x: auto;
+    height: 700px;
 }
 
 div.issue {
     -moz-box-shadow: 1px 1px 3px #ccc;
     -webkit-box-shadow: 1px 1px 3px #ccc;
     box-shadow: 1px 1px 3px #ccc;
-
     font-size: 11px;
     overflow: hidden;
     width: 90px;
@@ -41,15 +41,6 @@ div.issue p {
     overflow-y: auto;
 
     margin: 0 10px 0 0;
-    padding: 28px 5px 5px 5px;;
-}
-
-.issue-status .title {
-    position: fixed;
-    margin-top: -28px;
-    margin-left: -5px;
-    background: #fff;
-    width: 205px;
     padding: 5px;
 }
 
