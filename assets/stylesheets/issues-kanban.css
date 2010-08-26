@@ -12,6 +12,16 @@
     height: 700px;
 }
 
+.nav {
+    margin: 10px 0;
+    padding: 10px;
+    background: #eee;
+}
+
+.nav a, .nav span {
+    margin-right: 10px;
+}
+
 div.issue {
     -moz-box-shadow: 1px 1px 3px #ccc;
     -webkit-box-shadow: 1px 1px 3px #ccc;
