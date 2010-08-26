@@ -1,7 +1,10 @@
 class IssuesSidebarGraphHook < Redmine::Hook::ViewListener
   def view_issues_sidebar_issues_bottom(context = {})
-    p = context[:project].nil? ? {} : { :project_id => context[:project] }
+    output = ""
+    if context[:project]
+      output = link_to(l(:issues_kanban), { :controller => 'issues_kanban', :action => 'index', :only_path => true, :project_id => context[:project]}) + '<br />'
+    end
 
-    return link_to(l(:issues_kanban), { :controller => 'issues_kanban', :action => 'index', :only_path => true}.merge(p)) + '<br />'
+    return output
   end
 end
