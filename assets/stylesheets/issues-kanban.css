@@ -43,8 +43,11 @@ div.issue p {
     display: inline-block;
     vertical-align: top;
     white-space: normal;
-    width: 220px;
     height: 640px;
+
+    width:auto;
+    max-width: 220px;
+    min-width: 120px;
 
     border: 1px solid #ddd;
     overflow-x: hidden;
