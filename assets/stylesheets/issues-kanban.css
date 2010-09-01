@@ -121,10 +121,7 @@ div.issue p {
     font-size: 9px;
 }
 
-div.issue-priority-5 {
-    background: #faf;
-}
-
-div.issue-priority-4 {
-    background: #faa;
-}
+div.issue-priority-5 { background: #ffc4c4; }
+div.issue-priority-4 { background: #ffd4d4; }
+div.issue-priority-3 { background: #fee;    }
+div.issue-priority-1 { background: #eaf7ff; }

@@ -40,7 +40,7 @@ class IssuesKanbanController < ApplicationController
 
 
   def find_issues
-    issues_finder = { :include => [:assigned_to, :tracker, :priority, :category, :fixed_version], :order => "issues.assigned_to_id DESC" }
+    issues_finder = { :include => [:assigned_to, :tracker, :priority, :category, :fixed_version], :order => "issues.assigned_to_id DESC, enumerations.position DESC" }
 
     if @project
       conditions = {}
