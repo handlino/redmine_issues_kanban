@@ -40,16 +40,19 @@ class IssuesKanbanController < ApplicationController
 
 
   def find_issues
+    issues_finder = { :include => [:assigned_to, :tracker, :priority, :category, :fixed_version], :order => "issues.assigned_to_id DESC" }
+
     if @project
       conditions = {}
       if @version
         conditions[:fixed_version_id] = @version.id
       end
-      @issues = @project.issues.find(:all, :conditions => conditions, :include => [:assigned_to, :tracker, :priority, :category, :fixed_version])
+      issues_finder[:conditions] = conditions
+
+      @issues = @project.issues.find(:all, issues_finder)
     else
       retrieve_query
-
-      @issues = @query.issues(:include => [:assigned_to, :tracker, :priority, :category, :fixed_version])
+      @issues = @query.issues(issues_finder)
     end
   end
 
