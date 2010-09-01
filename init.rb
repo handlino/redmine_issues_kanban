@@ -13,4 +13,5 @@ Redmine::Plugin.register :redmine_issues_kanban do
   end
 
   menu :project_menu, :issues_kanban, { :controller => 'issues_kanban', :action => 'index' }, :param => :project_id, :before => :activity
+  menu :application_menu, :issues_kanban, { :controller => 'issues_kanban', :action => 'index'}
 end
