@@ -41,7 +41,7 @@ jQuery.noConflict();
   </script>
 <% end %>
 
-<% if @version %>
+<% if @versions && @versions.size > 0 %>
 <div id="issues-kanban-version-query" class="nav">
 <span>Versions:</span>
 <%= link_to "All", {:controller => "issues_kanban", :action => "index", :project_id => @project } %>
