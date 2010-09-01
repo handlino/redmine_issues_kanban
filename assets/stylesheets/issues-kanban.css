@@ -34,7 +34,7 @@ div.issue {
 }
 
 div.issue p {
-    height: 65px;
+    height: 60px;
     overflow: hidden;
     margin: 0;
 }
@@ -99,4 +99,22 @@ div.issue p {
 
 .ui-sortable {
     min-height: 50px;
+}
+
+
+.estimate {
+    z-index: 300;
+    position: relative;
+    top: 0px;
+    left: 70px;
+    margin-bottom: -14px;
+    display: block;
+    background: #57a;
+    width: 20px;
+    height: 14px;
+    line-height: 14px;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 9px;
 }
