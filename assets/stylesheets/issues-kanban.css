@@ -81,8 +81,10 @@ div.issue p {
 }
 
 .assigned_to {
-    font-size: 11px;
+    font-size: 9px;
     text-align: right;
+    padding: 1px 3px;
+    border-radius: 3px;
 }
 
 .issue-id {
@@ -117,4 +119,12 @@ div.issue p {
     border-radius: 5px;
     color: #fff;
     font-size: 9px;
+}
+
+div.issue-priority-5 {
+    background: #faf;
+}
+
+div.issue-priority-4 {
+    background: #faa;
 }
