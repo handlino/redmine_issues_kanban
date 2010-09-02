@@ -21,12 +21,11 @@
     -webkit-border-radius: 5px;
 }
 
-::-webkit-scrollbar-thumb:horizontal
+::-webkit-scrollbar-thumb:horizontal {
     background-color: #ccc;
     border: 1px solid #aaa;
     -webkit-border-radius: 5px;
 }
-
 
 .title {
     font-size: small;
