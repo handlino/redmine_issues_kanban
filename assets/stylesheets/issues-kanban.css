@@ -1,3 +1,33 @@
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment  {
+    height: 10px;
+    display: block;
+    background-color: transparent;
+    -webkit-border-radius: 4px;
+}
+
+::-webkit-scrollbar-track-piece  {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    background-color: #ccc;
+    border: 1px solid #aaa;
+    -webkit-border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:horizontal
+    background-color: #ccc;
+    border: 1px solid #aaa;
+    -webkit-border-radius: 5px;
+}
+
+
 .title {
     font-size: small;
 }
@@ -45,9 +75,7 @@ div.issue p {
     white-space: normal;
     height: 640px;
 
-    width:auto;
-    max-width: 220px;
-    min-width: 120px;
+    width: 120px;
 
     border: 1px solid #ddd;
     overflow-x: hidden;
@@ -74,6 +102,7 @@ div.issue p {
 
 .is_default {
     background: #efe;
+    width: 320px;
 }
 
 .is_closed {
@@ -102,7 +131,6 @@ div.issue p {
 .ui-sortable {
     min-height: 50px;
 }
-
 
 .estimate {
     z-index: 300;
