@@ -12,7 +12,6 @@ class IssuesKanbanController < ApplicationController
 
   def index
     @statuses = IssueStatus.all(:order => "position asc")
-
   rescue ActiveRecord::RecordNotFound
     render_404
   end
@@ -52,6 +51,8 @@ class IssuesKanbanController < ApplicationController
       @issues = @project.issues.find(:all, issues_finder)
     else
       retrieve_query
+
+      @query.group_by = nil
       @issues = @query.issues(issues_finder)
     end
   end
