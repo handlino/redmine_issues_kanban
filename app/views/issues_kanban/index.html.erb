@@ -16,10 +16,10 @@ jQuery.noConflict();
             items: "div.issue",
             placeholder: 'ui-state-highlight',
             forcePlaceholderSize: true,
-	    connectWith: '.issue-status > ul',
+	    connectWith: '.issue-status',
             receive: function(event, ui) {
-                var issue_id = ui.item.find(".issue").attr('class').match(/issue-(\d+)/)[1];
-                var status_id = $(event.target).parent(".issue-status").attr("class").match(/issue-status-(\d+)/)[1];
+                var issue_id = ui.item.attr('class').match(/issue-(\d+)/)[1];
+                var status_id = $(event.target).attr("class").match(/issue-status-(\d+)/)[1];
 
                 var data = {
                     'issue[status_id]': status_id,
@@ -27,13 +27,13 @@ jQuery.noConflict();
                 };
                 data[authenticity_token_name] = authenticity_token;
 
-                ui.item.find(".issue").addClass('updating');
+                ui.item.addClass('updating');
                 $.ajax({
                     'type': 'post',
                     'data': data,
                     'url': '/issues/' + issue_id,
                     'success': function() {
-                        ui.item.find(".issue").removeClass('updating');
+                        ui.item.removeClass('updating');
                     }
                 });
             }

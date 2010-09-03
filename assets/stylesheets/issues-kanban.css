@@ -75,7 +75,9 @@ div.issue {
     box-shadow: 1px 1px 3px #ccc;
     font-size: 11px;
     overflow: hidden;
-    width: auto;
+    display: inline-block;
+    vertical-align: top;
+    width: 70px;
     height: 70px;
     padding: 3px;
     margin: 5px;
@@ -86,7 +88,6 @@ div.issue p {
     height: 30px;
     overflow: hidden;
 }
-
 
 .is_default {
     background: #efe;
