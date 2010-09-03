@@ -10,8 +10,10 @@ jQuery.noConflict();
     var authenticity_token_name = <%= request_forgery_protection_token.to_json %>;
 
     $(function() {
-        $(".issue-status > ul").sortable({
-            items: "li",
+        $("#issues-kanban").scrollLeft( $('.issue-status:first').width() * 0.9 );
+
+        $(".issue-status").sortable({
+            items: "div.issue",
             placeholder: 'ui-state-highlight',
             forcePlaceholderSize: true,
 	    connectWith: '.issue-status > ul',
@@ -37,27 +39,17 @@ jQuery.noConflict();
             }
         }).disableSelection();
     });
+
 }(jQuery));
   </script>
-<% end %>
-
-<% if @versions && @versions.size > 0 %>
-<div id="issues-kanban-version-query" class="nav">
-<span>Versions:</span>
-<%= link_to "All", {:controller => "issues_kanban", :action => "index", :project_id => @project } %>
-<% @versions.each do |version| %>
-<%= link_to version.name, {:controller => "issues_kanban", :action => "index", :project_id => @project, :version => version } %>
-<% end%>
-</div>
 <% end %>
 
 <div id="issues-kanban">
 <% @statuses.each do |status| %>
 <div class="section issue-status <%= h status.is_closed ? "is_closed" : '' %> <%= h status.is_default ? "is_default" : '' %> issue-status-<%= h status.id %>">
     <h2 class="title"><%=h status.name %></h2>
-    <ul>
-    <% @issues.find_all { |x| x.status_id == status.id }.each do |issue| %>
-    <li>
+
+    <%- @issues.find_all { |x| x.status_id == status.id }.each do |issue| -%>
     <div class="issue issue-<%=h issue.id %> issue-priority-<%= issue.priority.position %>"
         <% if issue.estimated_hours %>
         <span class="estimate time"><%= h issue.estimated_hours.to_s.sub(/\.0$/, '') %></span>
@@ -68,9 +60,18 @@ jQuery.noConflict();
         <div class="assigned_to" style="background-color: <%= color_of_user(issue.assigned_to) %>;"><%= link_to_user(issue.assigned_to) %></div>
         <% end %>
     </div>
-    </li>
-    <% end %>
-    </ul>
+    <%- end -%>
 </div>
 <% end %>
 </div>
+
+
+<% if @versions && @versions.size > 0 %>
+<div id="issues-kanban-version-query" class="nav">
+    <span>Versions:</span>
+    <%= link_to "All", {:controller => "issues_kanban", :action => "index", :project_id => @project } %>
+    <% @versions.each do |version| %>
+    <%= link_to version.name, {:controller => "issues_kanban", :action => "index", :project_id => @project, :version => version } %>
+    <% end%>
+</div>
+<% end %>

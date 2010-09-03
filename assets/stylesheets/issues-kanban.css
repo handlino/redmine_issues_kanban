@@ -29,6 +29,7 @@
 
 .title {
     font-size: small;
+    margin: 5px;
 }
 
 #content {
@@ -38,7 +39,8 @@
 #issues-kanban {
     white-space: nowrap;
     overflow-x: auto;
-    height: 700px;
+    margin: 10px 0;
+    height: 660px;
 }
 
 .nav {
@@ -51,57 +53,43 @@
     margin-right: 10px;
 }
 
+.issue-status {
+    display: inline-block;
+    vertical-align: top;
+    white-space: normal;
+    height: 640px;
+    width: 173px;
+    width: 20%;
+
+    border-right: 1px dashed #ddd;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+}
+
 div.issue {
     -moz-box-shadow: 1px 1px 3px #ccc;
     -webkit-box-shadow: 1px 1px 3px #ccc;
     box-shadow: 1px 1px 3px #ccc;
     font-size: 11px;
     overflow: hidden;
-    width: 90px;
-    height: 90px;
+    width: auto;
+    height: 70px;
     padding: 3px;
+    margin: 5px;
 }
 
 div.issue p {
-    height: 60px;
+    margin: 5px 0;
+    height: 30px;
     overflow: hidden;
-    margin: 0;
 }
 
-.issue-status {
-    display: inline-block;
-    vertical-align: top;
-    white-space: normal;
-    height: 640px;
-
-    width: 120px;
-
-    border: 1px solid #ddd;
-    overflow-x: hidden;
-    overflow-y: auto;
-
-    margin: 0 10px 0 0;
-    padding: 5px;
-}
-
-.issue-status ul {
-    margin: 0;
-    list-style: none;
-    padding:0;
-}
-
-.issue-status li {
-    width: 100px;
-    height: 105px;
-    display: inline-block;
-    vertical-align: top;
-    margin: 0;:
-    padding: 0;
-}
 
 .is_default {
     background: #efe;
-    width: 320px;
 }
 
 .is_closed {
@@ -132,11 +120,9 @@ div.issue p {
 }
 
 .estimate {
-    z-index: 300;
-    position: relative;
-    top: 0px;
-    left: 70px;
-    margin-bottom: -14px;
+    float: right;
+    margin-right: 0px;
+
     display: block;
     background: #57a;
     width: 20px;
