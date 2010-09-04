@@ -51,11 +51,15 @@ jQuery.noConflict();
 
     <%- @issues.find_all { |x| x.status_id == status.id }.each do |issue| -%>
     <div class="issue issue-<%=h issue.id %> issue-priority-<%= issue.priority.position %>"
+        <div class="issue-id">
+            <%= link_to issue.id, { :controller => 'issues', :action => 'show', :id => issue.id } %>
+        </div>
         <% if issue.estimated_hours %>
-        <span class="estimate time"><%= h issue.estimated_hours.to_s.sub(/\.0$/, '') %></span>
+        <div class="estimate time"><%= h issue.estimated_hours.to_s.sub(/\.0$/, '') %></div>
         <% end %>
-        <%= link_to issue.id, { :controller => 'issues', :action => 'show', :id => issue.id }, :class => "issue-id" %>
+
         <p><%= h issue.subject %></p>
+
         <% if issue.assigned_to %>
         <div class="assigned_to" style="background-color: <%= color_of_user(issue.assigned_to) %>;"><%= link_to_user(issue.assigned_to) %></div>
         <% end %>
