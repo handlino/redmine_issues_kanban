@@ -115,7 +115,10 @@ div.issue p {
 }
 
 .updating {
-    background: #eef !important;
+    background: #eee url(images/ajax-loader.gif) center center no-repeat !important;
+}
+.updating * {
+    opacity: 0.3;
 }
 
 .ui-sortable {
