@@ -12,6 +12,14 @@ class IssuesKanbanController < ApplicationController
 
   def index
     @statuses = IssueStatus.all(:order => "position asc")
+
+    @status_issues = {}
+    @status_estimated_hours = {}
+    @statuses.each do |status|
+      @status_issues[status.id] = @issues.find_all { |x| x.status_id == status.id }
+      @status_estimated_hours[status.id] = @status_issues[status.id].map(&:estimated_hours).map(&:to_f).sum
+    end
+
   rescue ActiveRecord::RecordNotFound
     render_404
   end

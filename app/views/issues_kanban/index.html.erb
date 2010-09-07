@@ -44,12 +44,23 @@ jQuery.noConflict();
   </script>
 <% end %>
 
+<div id="issues-kanban-version-query" class="nav">
+    <%= link_to "Issue List", {:controller => "issues", :action => "index", :project_id => @project } %>
+
+    <% if @versions && @versions.size > 0 %>
+    <span>Versions:</span>
+    <%=  link_to "All", {:controller => "issues_kanban", :action => "index", :project_id => @project } %>
+    <%   @versions.each do |version| %>
+    <%=    link_to version.name, {:controller => "issues_kanban", :action => "index", :project_id => @project, :version => version } %>
+    <%   end %>
+    <% end %>
+</div>
+
 <div id="issues-kanban">
 <% @statuses.each do |status| %>
 <div class="section issue-status <%= h status.is_closed ? "is_closed" : '' %> <%= h status.is_default ? "is_default" : '' %> issue-status-<%= h status.id %>">
-    <h2 class="title"><%=h status.name %></h2>
-
-    <%- @issues.find_all { |x| x.status_id == status.id }.each do |issue| -%>
+    <h2 class="title"><%=h status.name %> (<%= @status_estimated_hours[status.id] %> hr)</h2>
+    <% @status_issues[status.id].each do |issue| %>
     <div class="issue issue-<%=h issue.id %> issue-priority-<%= issue.priority.position %>"
         <div class="issue-id">
             <%= link_to issue.id, { :controller => 'issues', :action => 'show', :id => issue.id } %>
@@ -69,13 +80,3 @@ jQuery.noConflict();
 <% end %>
 </div>
 
-
-<% if @versions && @versions.size > 0 %>
-<div id="issues-kanban-version-query" class="nav">
-    <span>Versions:</span>
-    <%= link_to "All", {:controller => "issues_kanban", :action => "index", :project_id => @project } %>
-    <% @versions.each do |version| %>
-    <%= link_to version.name, {:controller => "issues_kanban", :action => "index", :project_id => @project, :version => version } %>
-    <% end%>
-</div>
-<% end %>
