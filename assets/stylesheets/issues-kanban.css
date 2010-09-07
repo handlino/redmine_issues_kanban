@@ -30,6 +30,7 @@
 .title {
     font-size: small;
     margin: 5px;
+    clear: both;
 }
 
 #content {
@@ -88,7 +89,7 @@ div.issue {
 
 div.issue p {
     margin: 5px 0;
-    height: 30px;
+    height: 50px;
     overflow: hidden;
 }
 

@@ -20,6 +20,19 @@ class IssuesKanbanController < ApplicationController
       @status_estimated_hours[status.id] = @status_issues[status.id].map(&:estimated_hours).map(&:to_f).sum
     end
 
+    @issues_status_assignee = {}
+    @status_assignee_estimated_hours = {}
+    @issues.each do |issue|
+      assignee = issue.assigned_to.id rescue 0
+
+      @issues_status_assignee[issue.status_id] ||= {}
+      (@issues_status_assignee[issue.status_id][assignee] ||= []) << issue
+
+      @status_assignee_estimated_hours[issue.status_id] ||= {}
+      @status_assignee_estimated_hours[issue.status_id][assignee] ||= 0
+      @status_assignee_estimated_hours[issue.status_id][assignee] += issue.estimated_hours.to_f
+    end
+
   rescue ActiveRecord::RecordNotFound
     render_404
   end
