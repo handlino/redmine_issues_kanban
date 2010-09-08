@@ -33,6 +33,11 @@
     clear: both;
 }
 
+h3.title {
+    border: none;
+    margin: 0 5px;
+}
+
 #content {
     overflow: auto;
 }
@@ -70,6 +75,17 @@
     margin: 0;
 }
 
+.user-issues {
+    margin: 10px 0 20px 0;
+    height: 110px;
+    overflow: hidden;
+}
+
+.user-issues:hover {
+    overflow: auto;
+}
+
+
 div.issue {
     -moz-box-shadow: 1px 1px 3px #ccc;
     -webkit-box-shadow: 1px 1px 3px #ccc;
@@ -82,14 +98,15 @@ div.issue {
 
     cursor: move;
 
-    display: block;
-    float: left;
     position: relative;
+
+    display: inline-block;
+    vertical-align: top;
 }
 
 div.issue p {
     margin: 5px 0;
-    height: 50px;
+    height: 45px;
     overflow: hidden;
 }
 
