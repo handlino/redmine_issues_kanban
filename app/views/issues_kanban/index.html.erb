@@ -61,17 +61,19 @@ jQuery.noConflict();
 <div class="section issue-status <%= h status.is_closed ? "is_closed" : '' %> <%= h status.is_default ? "is_default" : '' %> issue-status-<%= h status.id %>">
     <h2 class="title"><%=h status.name %> (<%= @status_estimated_hours[status.id] %> hr)</h2>
 
-    <% @issues_status_assignee[status.id].to_a.each do |user_id, issues| %>
-    <h3 class="title"><%= user_section_title(user_id, status) %></h3>
-    <%   issues.each do |issue| %>
-    <div class="issue issue-<%=h issue.id %> issue-priority-<%= issue.priority.position %>">
-        <div class="issue-id"><%= link_to issue.id, { :controller => 'issues', :action => 'show', :id => issue.id } %></div>
-        <% if issue.estimated_hours %>
-        <div class="estimate time"><%= h issue.estimated_hours.to_s.sub(/\.0$/, '') %></div>
+    <% @assignees.each do |user| %>
+    <div class="user-issues">
+        <h3 class="title"><%= user_section_title(user, status) %></h3>
+        <% user_issues(user, status).each do |issue| %>
+        <div class="issue issue-<%=h issue.id %> issue-priority-<%= issue.priority.position %>">
+            <div class="issue-id"><%= link_to issue.id, { :controller => 'issues', :action => 'show', :id => issue.id } %></div>
+            <% if issue.estimated_hours %>
+            <div class="estimate time"><%= h issue.estimated_hours.to_s.sub(/\.0$/, '') %></div>
+            <% end %>
+            <p><%= h issue.subject %></p>
+        </div>
         <% end %>
-        <p><%= h issue.subject %></p>
     </div>
-    <%   end %>
     <% end %>
 </div>
 <% end %>

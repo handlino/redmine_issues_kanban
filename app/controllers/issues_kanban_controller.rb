@@ -13,25 +13,13 @@ class IssuesKanbanController < ApplicationController
   def index
     @statuses = IssueStatus.all(:order => "position asc")
 
-    @status_issues = {}
     @status_estimated_hours = {}
     @statuses.each do |status|
-      @status_issues[status.id] = @issues.find_all { |x| x.status_id == status.id }
-      @status_estimated_hours[status.id] = @status_issues[status.id].map(&:estimated_hours).map(&:to_f).sum
+      @status_estimated_hours[status.id] = @issues.find_all { |x| x.status_id == status.id }.map(&:estimated_hours).map(&:to_f).sum
     end
-
-    @issues_status_assignee = {}
-    @status_assignee_estimated_hours = {}
-    @issues.each do |issue|
-      assignee = issue.assigned_to_id || 0
-
-      @issues_status_assignee[issue.status_id] ||= {}
-      (@issues_status_assignee[issue.status_id][assignee] ||= []) << issue
-
-      @status_assignee_estimated_hours[issue.status_id] ||= {}
-      @status_assignee_estimated_hours[issue.status_id][assignee] ||= 0
-      @status_assignee_estimated_hours[issue.status_id][assignee] += issue.estimated_hours.to_f
-    end
+    
+    @assignees = @issues.find_all { |x| x.assigned_to_id != nil }.map(&:assigned_to).uniq.to_a.sort { |a,b| b.id.to_i <=> a.id.to_i }
+    @assignees << nil if @issues.any? { |x| x.assigned_to_id == nil }
 
   rescue ActiveRecord::RecordNotFound
     render_404
