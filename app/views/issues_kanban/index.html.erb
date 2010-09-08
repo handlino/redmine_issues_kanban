@@ -62,11 +62,7 @@ jQuery.noConflict();
     <h2 class="title"><%=h status.name %> (<%= @status_estimated_hours[status.id] %> hr)</h2>
 
     <% @issues_status_assignee[status.id].to_a.each do |user_id, issues| %>
-    <%   if user_id == 0 %>
-    <h3 class="title">(nobody) (<%= @status_assignee_estimated_hours[status.id][user_id] %> hr)</h3>
-    <%   else %>
-    <h3 class="title"><%= link_to_user(User.find(user_id)) %> (<%= @status_assignee_estimated_hours[status.id][user_id] %> hr)</h3>
-    <%   end %>
+    <h3 class="title"><%= user_section_title(user_id, status) %></h3>
     <%   issues.each do |issue| %>
     <div class="issue issue-<%=h issue.id %> issue-priority-<%= issue.priority.position %>">
         <div class="issue-id"><%= link_to issue.id, { :controller => 'issues', :action => 'show', :id => issue.id } %></div>
