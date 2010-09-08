@@ -66,7 +66,7 @@ h3.title {
     white-space: normal;
     height: auto;
     min-height: 640px;
-    width: 173px;
+    min-width: 320px;
     width: 20%;
 
     border-right: 1px dashed #ddd;
@@ -82,8 +82,9 @@ h3.title {
 
 .user-issues {
     margin: 10px 0 20px 0;
-    height: 110px;
+    height: 120px;
     overflow: hidden;
+    border-bottom: 1px dotted #555;
 }
 
 .user-issues:hover {
