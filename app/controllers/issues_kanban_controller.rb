@@ -23,7 +23,7 @@ class IssuesKanbanController < ApplicationController
     @issues_status_assignee = {}
     @status_assignee_estimated_hours = {}
     @issues.each do |issue|
-      assignee = issue.assigned_to.id rescue 0
+      assignee = issue.assigned_to_id || 0
 
       @issues_status_assignee[issue.status_id] ||= {}
       (@issues_status_assignee[issue.status_id][assignee] ||= []) << issue
