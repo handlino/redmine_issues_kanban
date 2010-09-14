@@ -62,6 +62,7 @@ jQuery.noConflict();
     <h2 class="title"><%=h status.name %> (<%= @status_estimated_hours[status.id] %> hr)</h2>
 
     <% @assignees.each do |user| %>
+    <%   if user_estimated_hours(user) > 0 %>
     <div class="user-issues">
         <h3 class="title"><%= user_section_title(user, status) %></h3>
         <% user_issues(user, status).each do |issue| %>
@@ -74,6 +75,7 @@ jQuery.noConflict();
         </div>
         <% end %>
     </div>
+    <%   end %>
     <% end %>
 </div>
 <% end %>

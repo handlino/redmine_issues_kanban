@@ -82,15 +82,12 @@ h3.title {
 
 .user-issues {
     margin: 10px 0 20px 0;
-    height: 120px;
-    overflow: hidden;
     border-bottom: 1px dotted #555;
 }
 
 .user-issues:hover {
-    overflow: auto;
+    background: #eee;
 }
-
 
 div.issue {
     -moz-box-shadow: 1px 1px 3px #ccc;
