@@ -16,12 +16,15 @@ jQuery.noConflict();
             items: "div.issue",
             placeholder: 'ui-state-highlight',
             forcePlaceholderSize: true,
-	    connectWith: '.issue-status',
+            connectWith: '.issue-status',
             receive: function(event, ui) {
                 var issue_id = ui.item.attr('class').match(/issue-(\d+)/)[1];
+                var assigned_to_id = $(ui.item).parent('.user-issues').attr("class").match(/user-id-(\d+)?/)[1]
                 var status_id = $(event.target).attr("class").match(/issue-status-(\d+)/)[1];
 
                 var data = {
+
+                    'issue[assigned_to_id]' : assigned_to_id,
                     'issue[status_id]': status_id,
                     '_method': "put"
                 };
@@ -63,7 +66,7 @@ jQuery.noConflict();
 
     <% @assignees.each do |user| %>
     <%   if user_estimated_hours(user, status) > 0 %>
-    <div class="user-issues">
+    <div class="user-issues user-id-<%=  user ?  user.id : "" %>">
         <h3 class="title"><%= user_section_title(user, status) %></h3>
         <% user_issues(user, status).each do |issue| %>
         <div class="issue issue-<%=h issue.id %> issue-priority-<%= issue.priority.position %> issue-tracker-<%= slugalize(issue.tracker.name) %>">
