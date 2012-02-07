@@ -34,7 +34,7 @@ jQuery.noConflict();
                 $.ajax({
                     'type': 'post',
                     'data': data,
-                    'url': '/issues/' + issue_id,
+                    'url': '<%= issues_path %>/' + issue_id,
                     'success': function() {
                         ui.item.removeClass('updating');
                     }
