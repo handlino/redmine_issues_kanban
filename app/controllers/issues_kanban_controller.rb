@@ -15,7 +15,7 @@ class IssuesKanbanController < ApplicationController
 
     @status_estimated_hours = {}
     @statuses.each do |status|
-      @status_estimated_hours[status.id] = @issues.find_all { |x| x.status_id == status.id }.map(&:estimated_hours).map(&:to_f).sum
+      @status_estimated_hours[status.id] = sprintf("%.2f",@issues.find_all { |x| x.status_id == status.id }.map(&:estimated_hours).map(&:to_f).sum)
     end
     
     @assignees = @issues.find_all { |x| x.assigned_to_id != nil }.map(&:assigned_to).uniq.to_a.sort { |a,b| b.id.to_i <=> a.id.to_i }
