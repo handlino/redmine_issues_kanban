@@ -69,7 +69,7 @@ jQuery.noConflict();
         <div class="issue issue-<%=h issue.id %> issue-priority-<%= issue.priority.position %> issue-tracker-<%= slugalize(issue.tracker.name) %>">
             <div class="issue-id"><%= link_to issue.id, { :controller => 'issues', :action => 'show', :id => issue.id } %></div>
             <% if issue.estimated_hours %>
-            <div class="estimate time"><%= h issue.estimated_hours.to_s.sub(/\.0$/, '') %></div>
+            <div class="estimate time"><%= h hour_format(issue.estimated_hours).to_s.sub(/\.0$/, '') %></div>
             <% end %>
             <p><%= h issue.subject %></p>
         </div>
