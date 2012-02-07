@@ -3,6 +3,10 @@ module IssuesKanbanHelper
     "rgb(" + (Digest::MD5.hexdigest(x.login)[0..5].split(/(..)/).select { |x| x != "" }.map { |x| 255 - (x.to_i(16) % 64) }).to_a.join(",") + ")"
   end
 
+  def status_classes(status)
+    "section issue-status issue-status-#{status.id} #{status.is_closed ? " is_closed" : '' } #{status.is_default ? " is_default" : ''}"
+  end
+
   def user_section_title(user, status)
     user_id = user ? user.id : 0
     (user ? link_to_user(user) : "(Someone)") + " (#{user_estimated_hours(user, status)} hr)";

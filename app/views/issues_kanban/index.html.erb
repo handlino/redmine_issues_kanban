@@ -58,7 +58,7 @@ jQuery.noConflict();
 
 <div id="issues-kanban">
 <% @statuses.each do |status| %>
-<div class="section issue-status <%= h status.is_closed ? "is_closed" : '' %> <%= h status.is_default ? "is_default" : '' %> issue-status-<%= h status.id %>">
+<div class="<%= h status_classes(status) %>">
     <h2 class="title"><%=h status.name %> (<%= @status_estimated_hours[status.id] %> hr)</h2>
 
     <% @assignees.each do |user| %>
