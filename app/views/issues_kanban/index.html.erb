@@ -16,12 +16,15 @@ jQuery.noConflict();
             items: "div.issue",
             placeholder: 'ui-state-highlight',
             forcePlaceholderSize: true,
-	    connectWith: '.issue-status',
+            connectWith: '.issue-status',
             receive: function(event, ui) {
                 var issue_id = ui.item.attr('class').match(/issue-(\d+)/)[1];
+                var assigned_to_id = $(ui.item).parent('.user-issues').attr("class").match(/user-id-(\d+)?/)[1]
                 var status_id = $(event.target).attr("class").match(/issue-status-(\d+)/)[1];
 
                 var data = {
+
+                    'issue[assigned_to_id]' : assigned_to_id,
                     'issue[status_id]': status_id,
                     '_method': "put"
                 };
@@ -31,7 +34,7 @@ jQuery.noConflict();
                 $.ajax({
                     'type': 'post',
                     'data': data,
-                    'url': '/issues/' + issue_id,
+                    'url': '<%= issues_path %>/' + issue_id,
                     'success': function() {
                         ui.item.removeClass('updating');
                     }
@@ -58,18 +61,18 @@ jQuery.noConflict();
 
 <div id="issues-kanban">
 <% @statuses.each do |status| %>
-<div class="section issue-status <%= h status.is_closed ? "is_closed" : '' %> <%= h status.is_default ? "is_default" : '' %> issue-status-<%= h status.id %>">
+<div class="<%= h status_classes(status) %>">
     <h2 class="title"><%=h status.name %> (<%= @status_estimated_hours[status.id] %> hr)</h2>
 
     <% @assignees.each do |user| %>
     <%   if user_estimated_hours(user, status) > 0 %>
-    <div class="user-issues">
+    <div class="user-issues user-id-<%=  user ?  user.id : "" %>">
         <h3 class="title"><%= user_section_title(user, status) %></h3>
         <% user_issues(user, status).each do |issue| %>
-        <div class="issue issue-<%=h issue.id %> issue-priority-<%= issue.priority.position %>">
+        <div class="issue issue-<%=h issue.id %> issue-priority-<%= issue.priority.position %> issue-tracker-<%= slugalize(issue.tracker.name) %>">
             <div class="issue-id"><%= link_to issue.id, { :controller => 'issues', :action => 'show', :id => issue.id } %></div>
             <% if issue.estimated_hours %>
-            <div class="estimate time"><%= h issue.estimated_hours.to_s.sub(/\.0$/, '') %></div>
+            <div class="estimate time"><%= h hour_format(issue.estimated_hours).to_s.sub(/\.0$/, '') %></div>
             <% end %>
             <p><%= h issue.subject %></p>
         </div>
