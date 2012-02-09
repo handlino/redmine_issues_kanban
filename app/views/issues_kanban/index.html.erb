@@ -1,86 +1,92 @@
 <% content_for :header_tags do %>
-  <%= stylesheet_link_tag 'flick/jquery-ui-1.8.4.custom.css', :plugin => :redmine_issues_kanban %>
-  <%= stylesheet_link_tag 'issues-kanban', :plugin => :redmine_issues_kanban %>
-  <%= javascript_include_tag 'jquery-1.4.2.min.js', 'jquery-ui-1.8.4.min.js', :plugin => :redmine_issues_kanban %>
-  <script type="text/javascript">
-jQuery.noConflict();
+    <%= stylesheet_link_tag 'flick/jquery-ui-1.8.4.custom.css', :plugin => :redmine_issues_kanban %>
+    <%= stylesheet_link_tag 'issues-kanban', :plugin => :redmine_issues_kanban %>
+    <%= javascript_include_tag 'jquery-1.4.2.min.js', 'jquery-ui-1.8.4.min.js', :plugin => :redmine_issues_kanban %>
+    <script type="text/javascript">
+        jQuery.noConflict();
 
-(function($) {
-    var authenticity_token = <%= form_authenticity_token.to_json %>;
-    var authenticity_token_name = <%= request_forgery_protection_token.to_json %>;
+        (function($) {
+            var authenticity_token = <%= form_authenticity_token.to_json %>;
+            var authenticity_token_name = <%= request_forgery_protection_token.to_json %>;
 
-    $(function() {
-        $("#issues-kanban").scrollLeft( $('.issue-status:first').width() * 0.9 );
+            $(function() {
+                $("#issues-kanban").scrollLeft($('.issue-status:first').width() * 0.9);
 
-        $(".issue-status").sortable({
-            items: "div.issue",
-            placeholder: 'ui-state-highlight',
-            forcePlaceholderSize: true,
-            connectWith: '.issue-status',
-            receive: function(event, ui) {
-                var issue_id = ui.item.attr('class').match(/issue-(\d+)/)[1];
-                var assigned_to_id = $(ui.item).parent('.user-issues').attr("class").match(/user-id-(\d+)?/)[1]
-                var status_id = $(event.target).attr("class").match(/issue-status-(\d+)/)[1];
+                $(".user-issues").sortable({
+                    items: "div.issue",
+                    placeholder: 'ui-state-highlight',
+                    forcePlaceholderSize: true,
+                    connectWith: '.user-issues',
+                    receive: function(event, ui) {
+                        var issue_id = ui.item.attr('class').match(/issue-(\d+)/)[1];
+                        var assigned_to_id = $(ui.item).parent('.user-issues').attr("class").match(/user-id-(\d+)?/)[1]
+                        var status_id = $(event.target).parent('.issue-status').attr("class").match(/issue-status-(\d+)/)[1];
 
-                var data = {
+                        var data = {
 
-                    'issue[assigned_to_id]' : assigned_to_id,
-                    'issue[status_id]': status_id,
-                    '_method': "put"
-                };
-                data[authenticity_token_name] = authenticity_token;
+                            'issue[assigned_to_id]' : assigned_to_id,
+                            'issue[status_id]': status_id,
+                            '_method': "put"
+                        };
+                        data[authenticity_token_name] = authenticity_token;
 
-                ui.item.addClass('updating');
-                $.ajax({
-                    'type': 'post',
-                    'data': data,
-                    'url': '<%= issues_path %>/' + issue_id,
-                    'success': function() {
-                        ui.item.removeClass('updating');
+                        ui.item.addClass('updating');
+                        $.ajax({
+                            'type': 'post',
+                            'data': data,
+                            'url': '<%= issues_path %>/' + issue_id,
+                            'success': function() {
+                                ui.item.removeClass('updating');
+                            }
+                        });
                     }
-                });
-            }
-        }).disableSelection();
-    });
+                }).disableSelection();
+            });
 
-}(jQuery));
-  </script>
+        }(jQuery));
+    </script>
 <% end %>
 
 <div id="issues-kanban-version-query" class="nav">
-    <%= link_to "Issue List", {:controller => "issues", :action => "index", :project_id => @project } %>
+  <%= link_to "Issue List", {:controller => "issues", :action => "index", :project_id => @project} %>
 
-    <% if @versions && @versions.size > 0 %>
-    <span>Versions:</span>
-    <%=  link_to "All", {:controller => "issues_kanban", :action => "index", :project_id => @project } %>
-    <%   @versions.each do |version| %>
-    <%=    link_to version.name, {:controller => "issues_kanban", :action => "index", :project_id => @project, :version => version } %>
-    <%   end %>
-    <% end %>
+  <% if @versions && @versions.size > 0 %>
+      <span>Versions:</span>
+      <%= link_to "All", {:controller => "issues_kanban", :action => "index", :project_id => @project} %>
+      <% @versions.each do |version| %>
+          <%= link_to version.name, {:controller => "issues_kanban", :action => "index", :project_id => @project, :version => version} %>
+      <% end %>
+  <% end %>
 </div>
 
 <div id="issues-kanban">
-<% @statuses.each do |status| %>
-<div class="<%= h status_classes(status) %>">
-    <h2 class="title"><%=h status.name %> (<%= @status_estimated_hours[status.id] %> hr)</h2>
+  <% @statuses.each do |status| %>
+      <div class="<%= h status_classes(status) %>">
+        <h2 class="title"><%= h status.name %> (<%= @status_estimated_hours[status.id] %> hr)</h2>
 
-    <% @assignees.each do |user| %>
-    <%   if user_estimated_hours(user, status) > 0 %>
-    <div class="user-issues user-id-<%=  user ?  user.id : "" %>">
-        <h3 class="title"><%= user_section_title(user, status) %></h3>
-        <% user_issues(user, status).each do |issue| %>
-        <div class="issue issue-<%=h issue.id %> issue-priority-<%= issue.priority.position %> issue-tracker-<%= slugalize(issue.tracker.name) %>">
-            <div class="issue-id"><%= link_to issue.id, { :controller => 'issues', :action => 'show', :id => issue.id } %></div>
-            <% if issue.estimated_hours %>
-            <div class="estimate time"><%= h hour_format(issue.estimated_hours).to_s.sub(/\.0$/, '') %></div>
-            <% end %>
-            <p><%= h issue.subject %></p>
-        </div>
+        <% ordered_assignees = [] %>
+        <% @assignees.each do |user| %>
+            <% ordered_assignees << {:assignee => user, :issues => user_issues(user, status)} %>
         <% end %>
-    </div>
-    <%   end %>
-    <% end %>
-</div>
-<% end %>
+        <% ordered_assignees.sort! { |a, b| b[:issues].length <=> a[:issues].length } %>
+
+        <% ordered_assignees.each do |hash| %>
+            <% user = hash[:assignee] %>
+            <% issues = hash[:issues] %>
+            <div class="user-issues user-id-<%= user ? user.id : "" %>">
+              <h3 class="title"><%= user_section_title(user, status) %></h3>
+              <% issues.each do |issue| %>
+                  <div class="issue issue-<%= h issue.id %> issue-priority-<%= issue.priority.position %> issue-tracker-<%= slugalize(issue.tracker.name) %>">
+                    <div class="issue-id"><%= link_to issue.id, {:controller => 'issues', :action => 'show', :id => issue.id} %></div>
+                    <% if issue.estimated_hours %>
+                        <div class="estimate time"><%= h hour_format(issue.estimated_hours).to_s.sub(/\.0$/, '') %></div>
+                    <% end %>
+                    <p><%= h issue.subject %></p>
+                  </div>
+              <% end %>
+            </div>
+        <% end %>
+      </div>
+  <% end %>
 </div>
 
