@@ -59,6 +59,8 @@
   <% end %>
 </div>
 
+<% form_tag({}) do -%>
+<%= hidden_field_tag 'back_url', url_for(params) %>
 <div id="issues-kanban">
   <% @statuses.each do |status| %>
       <div class="<%= h status_classes(status) %>">
@@ -76,6 +78,10 @@
             <div class="user-issues user-id-<%= user ? user.id : "" %>">
               <h3 class="title"><%= user_section_title(user, status) %></h3>
               <% issues.each do |issue| %>
+                  <table class="kanban_issue_table">
+                    <tr id="issue-<%= h issue.id %>" class="hascontextmenu">
+                      <td>
+                        <%= check_box_tag("ids[]", issue.id, false, :id => nil, :style => "display:none;") %>
                   <div class="issue issue-<%= h issue.id %> issue-priority-<%= issue.priority.position %> issue-tracker-<%= slugalize(issue.tracker.name) %>">
                     <div class="issue-id"><%= link_to issue.id, {:controller => 'issues', :action => 'show', :id => issue.id} %></div>
                     <% if issue.estimated_hours %>
@@ -83,10 +89,15 @@
                     <% end %>
                     <p><%= h issue.subject %></p>
                   </div>
+                      </td>
+                    </tr>
+                  </table>
               <% end %>
             </div>
         <% end %>
       </div>
   <% end %>
 </div>
+<% end %>
+  <%= context_menu issues_context_menu_path %>
 
