@@ -6,8 +6,8 @@
         jQuery.noConflict();
 
         (function($) {
-            var authenticity_token = <%= form_authenticity_token.to_json %>;
-            var authenticity_token_name = <%= request_forgery_protection_token.to_json %>;
+            var authenticity_token = <%= form_authenticity_token.to_json.html_safe %>;
+            var authenticity_token_name = <%= request_forgery_protection_token.to_json.html_safe %>;
 
             $(function() {
                 $("#issues-kanban").scrollLeft($('.issue-status:first').width() * 0.9);
