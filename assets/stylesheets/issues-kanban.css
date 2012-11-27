@@ -165,3 +165,14 @@ div.issue-priority-5 { background: #ffc4c4; }
 div.issue-priority-4 { background: #ffd4d4; }
 div.issue-priority-3 { background: #fee;    }
 div.issue-priority-1 { background: #eaf7ff; }
+
+table.kanban_issue_table { display: inline; }
+table.kanban_issue_table td { padding: 0; }
+table.kanban_issue_table .context-menu-selection {
+    background-color: transparent !important;
+}
+table.kanban_issue_table .context-menu-selection,
+table.kanban_issue_table .context-menu-selection a,
+table.kanban_issue_table .context-menu-selection a:hover {
+    color: #484848 !important;
+}
